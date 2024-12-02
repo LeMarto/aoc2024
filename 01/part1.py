@@ -1,6 +1,6 @@
 left = []
 right = []
-with open('part1.input', 'r') as file:
+with open('input', 'r') as file:
     for line in file:
         splitted_line = line.split('   ')
         left_number = int(splitted_line[0])
