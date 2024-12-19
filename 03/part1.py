@@ -13,10 +13,7 @@ def check_second_number_or_parenthesys(value, mul_list:list[str], processed:list
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value in ['0','1','2','3','4','5','6','7','8','9']:
+    if value in ['0','1','2','3','4','5','6','7','8','9']:
         acum+=value
         next_function = check_second_number_or_parenthesys
     elif value == ')':
@@ -27,7 +24,9 @@ def check_second_number_or_parenthesys(value, mul_list:list[str], processed:list
         proc=''
         next_function = check_m
     else:
-        next_function = check_second_number_or_parenthesys
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     mul_list.append(acum)
     processed.append(proc)
     return [mul_list, next_function, processed]   
@@ -36,14 +35,13 @@ def check_second_number(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value in ['0','1','2','3','4','5','6','7','8','9']:
+    if value in ['0','1','2','3','4','5','6','7','8','9']:
         acum+=value
         next_function = check_second_number_or_parenthesys
     else:
-        next_function = check_second_number
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]   
@@ -52,17 +50,16 @@ def check_number_or_comma(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value in ['0','1','2','3','4','5','6','7','8','9']:
+    if value in ['0','1','2','3','4','5','6','7','8','9']:
         acum+=value
         next_function = check_number_or_comma
     elif value == ',':
         acum+=value
         next_function = check_second_number
     else:
-        next_function = check_number_or_comma
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]    
@@ -71,14 +68,13 @@ def check_first_number(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value in ['0','1','2','3','4','5','6','7','8','9']:
+    if value in ['0','1','2','3','4','5','6','7','8','9']:
         acum+=value
         next_function = check_number_or_comma
     else:
-        next_function = check_first_number
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]
@@ -87,14 +83,13 @@ def check_op(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value == '(':
+    if value == '(':
         acum+=value
         next_function = check_first_number
     else:
-        next_function = check_op
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]
@@ -103,14 +98,13 @@ def check_l(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value == 'l':
+    if value == 'l':
         acum+=value
         next_function = check_op
     else:
-        next_function = check_l
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]
@@ -119,14 +113,13 @@ def check_u(value, mul_list:list[str], processed:list[str]):
     acum = mul_list.pop()
     proc = processed.pop()
     proc+=value
-    if value=='m' and len(acum) > 0 and not acum[-1:] == ')':
-        acum = 'm'
-        next_function = check_u
-    elif value == 'u':
+    if value == 'u':
         acum+=value
         next_function = check_l
     else:
-        next_function = check_u
+        #restart discarding acumulated
+        acum=''
+        next_function = check_m
     processed.append(proc)
     mul_list.append(acum)
     return [mul_list, next_function, processed]
